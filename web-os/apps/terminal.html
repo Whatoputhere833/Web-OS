@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Terminal</title>
+  <style>
+    body {
+      background: #000;
+      color: #0f0;
+      font-family: monospace;
+      margin: 0;
+      padding: 10px;
+    }
+    #output {
+      white-space: pre-wrap;
+    }
+    input {
+      background: #000;
+      color: #0f0;
+      border: none;
+      font-family: inherit;
+      width: 100%;
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="output">HTM-OS Terminal\nType `help` for commands.\n</div>
+  <input id="input" autofocus />
+  <script>
+    const input = document.getElementById("input");
+    const output = document.getElementById("output");
+
+    const commands = {
+      help: "Available commands: help, about, date, clear",
+      about: "HTM-OS v0.1 by You!",
+      date: new Date().toString(),
+    };
+
+    input.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        const cmd = input.value.trim();
+        output.innerText += `\n> ${cmd}`;
+        if (cmd === "clear") {
+          output.innerText = "";
+        } else {
+          output.innerText += `\n${commands[cmd] || "Command not found."}`;
+        }
+        input.value = "";
+        output.scrollTop = output.scrollHeight;
+      }
+    });
+  </script>
+</body>
+</html>
